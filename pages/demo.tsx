@@ -204,7 +204,10 @@ export default function DemoPage() {
                       </motion.h1>
                     ) : (
                       <h2 className="text-5xl font-bold text-[#40bf93]">
-                        TRIP TO {city.toUpperCase()}
+                        TRIP TO{" "}
+                        <span className="font-inter text-[#407BBF]">
+                          {city.toUpperCase()}
+                        </span>
                       </h2>
                     )}
 
@@ -255,18 +258,20 @@ export default function DemoPage() {
 
           {allImages.length > 0 ? (
             <div className="w-full h-[40vh] md:w-1/2 md:h-screen bg-[#F1F2F4] relative overflow-hidden">
-              <div className="grid grid-cols-4 md:grid-cols-2 gap-1 overflow-hidden">
-                {allImages.slice(0, 16).map((images, index) => (
-                  <div key={index} className="overflow-hidden">
-                    <Image
-                      src={`${images.image}`}
-                      alt={index.toString()}
-                      width={700}
-                      height={350}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
+              <div className="overflow-y-auto h-full">
+                <div className="grid grid-cols-4 md:grid-cols-2 gap-1">
+                  {allImages.slice(0, 16).map((image, index) => (
+                    <div key={index} className="">
+                      <Image
+                        src={`${image.image}`}
+                        alt={index.toString()}
+                        width={700}
+                        height={350}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           ) : (
@@ -290,7 +295,10 @@ export default function DemoPage() {
                   </filter>
                   <rect width="100%" height="100%" filter="url(#noise)"></rect>
                 </svg>
-                <main className="flex flex-col justify-center h-[90%] static md:fixed w-screen overflow-hidden grid-rows-[1fr_repeat(3,auto)_1fr] z-[100] pt-[30px] pb-[320px] px-4 md:px-20 md:py-0">
+                <main
+                  className="flex flex-col justify-center h-[90%] static md:fixed w-screen overflow-hidden grid-rows-[1fr_repeat(3,auto)_1fr] z-[100] 
+                pt-[120px] pb-[20px] px-4 md:px-20 md:py-0"
+                >
                   {loading ? (
                     <motion.h1
                       initial={{ opacity: 0, y: 40 }}
