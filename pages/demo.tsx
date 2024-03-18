@@ -215,9 +215,10 @@ export default function DemoPage() {
                           duration: 0.95,
                           ease: [0.165, 0.84, 0.44, 1],
                         }}
-                        className=" relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[16vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                        className=" relative md:ml-[-10px] md:mb-[65px]  md:mt-[110px]  font-extrabold text-[16vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
                       >
                         <span className="text-[#40bf93]">Creating</span>
+                        <br />
                         &nbsp;a&nbsp;
                         <span className="font-inter text-[#407BBF]">
                           plan
@@ -251,42 +252,44 @@ export default function DemoPage() {
                     </div>
 
                     <div className="flex gap-[5px] justify-start ml-3 mt-8">
-                      <div>
-                        <motion.div
-                          onClick={() => setStep(1)}
-                          className="group rounded-full px-4 py-2 text-[13px] font-semibold transition-all flex items-center justify-center bg-[#f5f7f9] text-[#1E2B3A] no-underline active:scale-95 scale-100 duration-75"
-                          style={{
-                            cursor: "pointer",
-                            boxShadow:
-                              "0px 1px 4px rgba(13, 34, 71, 0.17), inset 0px 0px 0px 1px #ff8000, inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1)",
-                          }}
-                        >
-                          <svg
-                            className="w-5 h-5"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            transform="scale(-1, 1)"
+                      {!loading && (
+                        <div>
+                          <motion.div
+                            onClick={() => setStep(1)}
+                            className="group rounded-full px-4 py-2 text-[13px] font-semibold transition-all flex items-center justify-center bg-[#f5f7f9] text-[#1E2B3A] no-underline active:scale-95 scale-100 duration-75"
+                            style={{
+                              cursor: "pointer",
+                              boxShadow:
+                                "0px 1px 4px rgba(13, 34, 71, 0.17), inset 0px 0px 0px 1px #ff8000, inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1)",
+                            }}
                           >
-                            <path
-                              d="M13.75 6.75L19.25 12L13.75 17.25"
-                              stroke="#1E2B3A"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M19 12H4.75"
-                              stroke="#1E2B3A"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
+                            <svg
+                              className="w-5 h-5"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              transform="scale(-1, 1)"
+                            >
+                              <path
+                                d="M13.75 6.75L19.25 12L13.75 17.25"
+                                stroke="#1E2B3A"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <path
+                                d="M19 12H4.75"
+                                stroke="#1E2B3A"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
 
-                          <span className="ml-2 color"> Back </span>
-                        </motion.div>
-                      </div>
+                            <span className="ml-2 color"> Back </span>
+                          </motion.div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -346,6 +349,7 @@ export default function DemoPage() {
                       className=" relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[16vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
                     >
                       <span className="text-[#40bf93]">Searching</span>
+                      <br />
                       &nbsp;for&nbsp;
                       <span className="font-inter text-[#407BBF]">
                         images
