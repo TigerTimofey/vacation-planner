@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, Key } from "react";
 
 import Image from "next/image";
 
@@ -8,7 +8,9 @@ export default function DemoPage() {
   const [step, setStep] = useState(1);
   const [city, setCity] = useState("");
   const [days, setDays] = useState("");
-  const [imageOfPlace, setImageOfPlace] = useState("");
+
+  const [allImages, setAllImages] = useState<string[]>([]);
+
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -25,16 +27,14 @@ export default function DemoPage() {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      console.log("resultIMG", result);
-      setImageOfPlace(result.results[2].image);
+
+      setAllImages(result.results);
     } catch (error) {
       console.error(error);
-    } finally {
-      // setLoading(false);
     }
   };
   const fetchData = async () => {
-    // setLoading(true);
+    setLoading(true);
     const url = `https://open-ai25.p.rapidapi.com/ask`;
     const options = {
       method: "POST",
@@ -47,8 +47,7 @@ export default function DemoPage() {
         query: `Give me plan for ${days} days when you are staying in ${city}. Do not use any HTML tags in answer. I need it in this format, without any other words from your side:
         ${[...Array(Number(days))]
           .map((_, i) => `Day ${i + 1}\nWhat to do.`)
-          .join("\n\n")}
-        `,
+          .join("\n\n")}`,
       }),
     };
 
@@ -60,7 +59,7 @@ export default function DemoPage() {
     } catch (error) {
       console.error("error: ", error);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -89,7 +88,7 @@ export default function DemoPage() {
                   <div className="max-w-lg mx-auto px-4 lg:px-0 text-center">
                     <label
                       htmlFor="cityInput"
-                      className="text-[18px] leading-[20px] text-[#1a2b3b] font-bold my-4"
+                      className="text-[15px] leading-[20px] text-[#1a2b3b] font-bold my-4"
                     >
                       <input
                         id="cityInput"
@@ -103,7 +102,7 @@ export default function DemoPage() {
                     <br /> <br />
                     <label
                       htmlFor="daysInput"
-                      className="text-[18px] leading-[20px] text-[#1a2b3b] font-bold my-4"
+                      className="text-[15px] leading-[20px] text-[#1a2b3b] font-bold my-4"
                     >
                       <input
                         id="daysInput"
@@ -129,9 +128,8 @@ export default function DemoPage() {
                         href="/"
                         className="group rounded-full px-4 py-2 text-[13px] font-semibold transition-all flex items-center justify-center bg-[#f5f7f9] text-[#1E2B3A] no-underline active:scale-95 scale-100 duration-75"
                         style={{
-                          boxShadow: "0 1px 1px #0c192714, 0 1px 3px #0c192724",
-                          backgroundColor: "#ff8000",
-                          color: "white",
+                          boxShadow:
+                            "0px 1px 4px rgba(13, 34, 71, 0.17), inset 0px 0px 0px 1px #ff8000, inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1)",
                         }}
                       >
                         <svg
@@ -192,9 +190,16 @@ export default function DemoPage() {
                   className="max-w-lg mx-auto px-4 lg:px-0"
                 >
                   <div className="max-w-lg mx-auto px-4 lg:px-0 text-center">
-                    <h2 className="text-4xl font-bold text-[#40bf93]">
-                      TRIP TO {city.toUpperCase()}
-                    </h2>
+                    {loading ? (
+                      <h2 className="text-4xl font-bold text-[#40bf93]">
+                        Loading...
+                      </h2>
+                    ) : (
+                      <h2 className="text-4xl font-bold text-[#40bf93]">
+                        TRIP TO {city.toUpperCase()}
+                      </h2>
+                    )}
+
                     <div className="overflow-y-auto max-h-[60vh] my-4 px-4">
                       {result && result.length > 0 && (
                         <div className="bg-[#F1F2F4] p-4 rounded-lg shadow-md">
@@ -221,11 +226,9 @@ export default function DemoPage() {
                           onClick={() => setStep(1)}
                           className="group rounded-full px-4 py-2 text-[13px] font-semibold transition-all flex items-center justify-center bg-[#f5f7f9] text-[#1E2B3A] no-underline active:scale-95 scale-100 duration-75"
                           style={{
-                            boxShadow:
-                              "0 1px 1px #0c192714, 0 1px 3px #0c192724",
-                            backgroundColor: "#ff8000",
-                            color: "white",
                             cursor: "pointer",
+                            boxShadow:
+                              "0px 1px 4px rgba(13, 34, 71, 0.17), inset 0px 0px 0px 1px #ff8000, inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1)",
                           }}
                         >
                           <svg
@@ -263,19 +266,20 @@ export default function DemoPage() {
             </div>
           </div>
 
-          {imageOfPlace.length > 0 ? (
+          {allImages.length > 0 ? (
             <div className="w-full h-[40vh] md:w-1/2 md:h-screen bg-[#F1F2F4] relative overflow-hidden">
-              <div className="flex justify-center items-center h-screen bg-[#F1F2F4] ">
-                <Image
-                  src={imageOfPlace}
-                  alt="Image of the place"
-                  width={750}
-                  height={160}
-                  style={{
-                    padding: "20px",
-                    borderRadius: "30px",
-                  }}
-                />
+              <div className="grid grid-cols-4 md:grid-cols-2 gap-1 overflow-y-auto">
+                {allImages.slice(0, 16).map((images, index) => (
+                  <div key={index} className="overflow-hidden">
+                    <Image
+                      src={images.image}
+                      alt={index.toString()}
+                      width={700}
+                      height={350}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           ) : (
@@ -300,21 +304,41 @@ export default function DemoPage() {
                   <rect width="100%" height="100%" filter="url(#noise)"></rect>
                 </svg>
                 <main className="flex flex-col justify-center h-[90%] static md:fixed w-screen overflow-hidden grid-rows-[1fr_repeat(3,auto)_1fr] z-[100] pt-[30px] pb-[320px] px-4 md:px-20 md:py-0">
-                  <motion.h1
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      delay: 0.15,
-                      duration: 0.95,
-                      ease: [0.165, 0.84, 0.44, 1],
-                    }}
-                    className=" relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[16vw] md:text-[70px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
-                  >
-                    Enter <span className="text-[#40bf93]">place</span>
-                    <br />
-                    and <span className="font-inter text-[#407BBF]">days</span>.
-                  </motion.h1>
-
+                  {loading ? (
+                    <motion.h1
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.15,
+                        duration: 0.95,
+                        ease: [0.165, 0.84, 0.44, 1],
+                      }}
+                      className=" relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[16vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                    >
+                      <span className="text-[#40bf93]">Creating</span>
+                      &nbsp;a&nbsp;
+                      <span className="font-inter text-[#407BBF]">
+                        plan
+                      </span>{" "}
+                      ...
+                    </motion.h1>
+                  ) : (
+                    <motion.h1
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.15,
+                        duration: 0.95,
+                        ease: [0.165, 0.84, 0.44, 1],
+                      }}
+                      className=" relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[16vw] md:text-[70px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                    >
+                      Enter <span className="text-[#40bf93]">place</span>
+                      <br />
+                      and{" "}
+                      <span className="font-inter text-[#407BBF]">days</span>.
+                    </motion.h1>
+                  )}
                   <div className="flex gap-[15px] mt-8 md:mt-0"></div>
                 </main>
               </div>
