@@ -19,33 +19,45 @@ export default function DemoPage() {
   const [loading, setLoading] = React.useState(false);
 
   const fetchImage = async () => {
-    const url = `https://free-images-api.p.rapidapi.com/images/${city}`;
+    const url = `https://${process.env.NEXT_PUBLIC_OPENAI_API_IMAGE_URL}/images/${city}`;
+
+    const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_IMAGE_KEY;
+    if (!apiKey) {
+      console.error("API key is not defined");
+      return;
+    }
+
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "1e4258667emsh8f4bba3149f4e45p1af5a3jsnce501d5d7a5e",
-        "X-RapidAPI-Host": "free-images-api.p.rapidapi.com",
+        "X-RapidAPI-Key": apiKey,
+        "X-RapidAPI-Host": `${process.env.NEXT_PUBLIC_OPENAI_API_IMAGE_URL}`,
       },
     };
 
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      console.log(result.results);
       setAllImages(result.results);
     } catch (error) {
       console.error(error);
     }
   };
+
   const fetchData = async () => {
     setLoading(true);
-    const url = `https://open-ai25.p.rapidapi.com/ask`;
+    const url = `https://${process.env.NEXT_PUBLIC_OPENAI_API_CHAT_URL}/ask`;
+    const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_CHAT_KEY;
+    if (!apiKey) {
+      console.error("API key is not defined");
+      return;
+    }
     const options = {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "X-RapidAPI-Key": "9910ed293fmshc626d3a5c805712p16ba68jsn9bf15c3872aa",
-        "X-RapidAPI-Host": "open-ai25.p.rapidapi.com",
+        "X-RapidAPI-Key": apiKey,
+        "X-RapidAPI-Host": `${process.env.NEXT_PUBLIC_OPENAI_API_CHAT_URL}`,
       },
       body: JSON.stringify({
         query: `Give me plan for ${days} days when you are staying in ${city}. Do not use any HTML tags in answer. I need it in this format, without any other words from your side:
@@ -195,11 +207,25 @@ export default function DemoPage() {
                 >
                   <div className="max-w-lg mx-auto px-4 lg:px-0 text-center">
                     {loading ? (
-                      <h2 className="text-4xl font-bold text-[#40bf93]">
-                        Loading...
-                      </h2>
+                      <motion.h1
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          delay: 0.15,
+                          duration: 0.95,
+                          ease: [0.165, 0.84, 0.44, 1],
+                        }}
+                        className=" relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[16vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                      >
+                        <span className="text-[#40bf93]">Creating</span>
+                        &nbsp;a&nbsp;
+                        <span className="font-inter text-[#407BBF]">
+                          plan
+                        </span>{" "}
+                        ...
+                      </motion.h1>
                     ) : (
-                      <h2 className="text-4xl font-bold text-[#40bf93]">
+                      <h2 className="text-5xl font-bold text-[#40bf93]">
                         TRIP TO {city.toUpperCase()}
                       </h2>
                     )}
@@ -319,10 +345,10 @@ export default function DemoPage() {
                       }}
                       className=" relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[16vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
                     >
-                      <span className="text-[#40bf93]">Creating</span>
-                      &nbsp;a&nbsp;
+                      <span className="text-[#40bf93]">Searching</span>
+                      &nbsp;for&nbsp;
                       <span className="font-inter text-[#407BBF]">
-                        plan
+                        images
                       </span>{" "}
                       ...
                     </motion.h1>

@@ -52,20 +52,20 @@ export default function Home() {
           >
             <div className="w-1/2">
               <h2 className="flex items-center font-semibold text-[1em] text-[#1a2b3b]">
-                Platform
+                About
               </h2>
               <p className="text-[14px] leading-[20px] text-[#1a2b3b] font-normal">
-                Full access to our platform, including all questions and
-                solutions.
+                This project generates a <b>plan for your trip</b> and{" "}
+                <b>images of the place</b> using AI.
               </p>
             </div>
             <div className="w-1/2">
               <h2 className="flex items-center font-semibold text-[1em] text-[#1a2b3b]">
-                Community
+                How to use
               </h2>
               <p className="text-[14px] leading-[20px] text-[#1a2b3b] font-normal">
-                Join a community of like-minded individuals, and learn from each
-                other.
+                Simply click on <b>Try it out</b> then enter the location and
+                number of days, and click <b>Get a plan</b>.
               </p>
             </div>
           </motion.div>
