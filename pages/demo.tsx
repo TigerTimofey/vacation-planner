@@ -1,18 +1,22 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useRef, useState, useEffect, useCallback, Key } from "react";
+import React from "react";
 
 import Image from "next/image";
 
 export default function DemoPage() {
-  const [step, setStep] = useState(1);
-  const [city, setCity] = useState("");
-  const [days, setDays] = useState("");
+  type Link = {
+    image: string;
+  };
 
-  const [allImages, setAllImages] = useState<string[]>([]);
+  const [step, setStep] = React.useState(1);
+  const [city, setCity] = React.useState("");
+  const [days, setDays] = React.useState("");
 
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [allImages, setAllImages] = React.useState<Link[]>([]);
+
+  const [result, setResult] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const fetchImage = async () => {
     const url = `https://free-images-api.p.rapidapi.com/images/${city}`;
@@ -27,7 +31,7 @@ export default function DemoPage() {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-
+      console.log(result.results);
       setAllImages(result.results);
     } catch (error) {
       console.error(error);
@@ -272,7 +276,7 @@ export default function DemoPage() {
                 {allImages.slice(0, 16).map((images, index) => (
                   <div key={index} className="overflow-hidden">
                     <Image
-                      src={images.image}
+                      src={`${images.image}`}
                       alt={index.toString()}
                       width={700}
                       height={350}
