@@ -84,7 +84,7 @@ export default function DemoPage() {
   return (
     <AnimatePresence>
       {step === 3 ? (
-        <div className="w-full min-h-screen flex flex-col px-4 pt-2 pb-8 md:px-8 md:py-2 bg-[#FCFCFC] relative overflow-x-hidden"></div>
+        <div className="w-full min-h-screen flex flex-col px-4 pt-2 pb-8 md:px-8 md:py-2 bg-[#FCFCFC] relative overflow-hidden"></div>
       ) : (
         <div className="flex flex-col md:flex-row w-full md:overflow-hidden">
           <div className="w-full min-h-[60vh] md:w-1/2 md:h-screen flex flex-col px-4 pt-2 pb-8 md:px-0 md:py-2 bg-[#FCFCFC] justify-center">
@@ -148,30 +148,7 @@ export default function DemoPage() {
                             "0px 1px 4px rgba(13, 34, 71, 0.17), inset 0px 0px 0px 1px #ff8000, inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1)",
                         }}
                       >
-                        <svg
-                          className="w-5 h-5"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          transform="scale(-1, 1)"
-                        >
-                          <path
-                            d="M13.75 6.75L19.25 12L13.75 17.25"
-                            stroke="#1E2B3A"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M19 12H4.75"
-                            stroke="#1E2B3A"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-
-                        <span className="ml-2 color"> Back </span>
+                        <span className="color"> Back </span>
                       </Link>
 
                       <button
@@ -263,30 +240,7 @@ export default function DemoPage() {
                                 "0px 1px 4px rgba(13, 34, 71, 0.17), inset 0px 0px 0px 1px #ff8000, inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1)",
                             }}
                           >
-                            <svg
-                              className="w-5 h-5"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              transform="scale(-1, 1)"
-                            >
-                              <path
-                                d="M13.75 6.75L19.25 12L13.75 17.25"
-                                stroke="#1E2B3A"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                              <path
-                                d="M19 12H4.75"
-                                stroke="#1E2B3A"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-
-                            <span className="ml-2 color"> Back </span>
+                            <span className="color"> Back </span>
                           </motion.div>
                         </div>
                       )}
@@ -301,7 +255,7 @@ export default function DemoPage() {
 
           {allImages.length > 0 ? (
             <div className="w-full h-[40vh] md:w-1/2 md:h-screen bg-[#F1F2F4] relative overflow-hidden">
-              <div className="grid grid-cols-4 md:grid-cols-2 gap-1 overflow-y-auto">
+              <div className="grid grid-cols-4 md:grid-cols-2 gap-1 overflow-hidden">
                 {allImages.slice(0, 16).map((images, index) => (
                   <div key={index} className="overflow-hidden">
                     <Image
