@@ -1,5 +1,5 @@
 {
-  "name": "liftoff",
+  "name": "vacation-planner",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,8 @@
     "@ffmpeg/core": "^0.11.0",
     "@ffmpeg/ffmpeg": "^0.11.6",
     "@headlessui/react": "^1.7.14",
+    "@mui/material": "^5.15.13",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.17",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
@@ -29,6 +31,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-webcam": "^7.0.1",
+    "styled-components": "^6.1.8",
     "typescript": "5.0.4",
     "uuidv4": "^6.2.13"
   },
