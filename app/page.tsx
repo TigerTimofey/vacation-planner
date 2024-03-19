@@ -24,7 +24,7 @@ export default function Home() {
         </svg>
         <main
           className="flex flex-col justify-center h-[90%] static md:fixed w-screen overflow-hidden grid-rows-[1fr_repeat(3,auto)_1fr]
-           z-[100] pt-[300px] pb-[320px] px-4 md:px-20 md:py-0"
+   z-[100] px-4 md:px-20 md:py-0 mt-[200px] sm:mt-0"
           style={{ userSelect: "none" }}
         >
           <motion.h1

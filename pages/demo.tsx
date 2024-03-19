@@ -8,15 +8,18 @@ export default function DemoPage() {
   type Link = {
     image: string;
   };
-
-  const [step, setStep] = React.useState(1);
+  const fakeData = `Day 1
+lalal
+Day 2 
+alalal`;
+  const [step, setStep] = React.useState(2);
   const [city, setCity] = React.useState("");
   const [days, setDays] = React.useState("");
 
   const [allImages, setAllImages] = React.useState<Link[]>([]);
 
   const [result, setResult] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
   const fetchImage = async () => {
     const url = `https://${process.env.NEXT_PUBLIC_OPENAI_API_IMAGE_URL}/images/${city}`;
@@ -87,7 +90,7 @@ export default function DemoPage() {
         <div className="w-full min-h-screen flex flex-col px-4 pt-2 pb-8 md:px-8 md:py-2 bg-[#FCFCFC] relative overflow-hidden"></div>
       ) : (
         <div className="flex flex-col md:flex-row w-full md:overflow-hidden">
-          <div className="w-full min-h-[60vh] md:w-1/2 md:h-screen flex flex-col px-4 pt-2 pb-8 md:px-0 md:py-2 bg-[#FCFCFC] justify-center">
+          <div className="w-full min-h-[50vh] md:w-1/2 md:h-screen flex flex-col px-4 pt-2  md:px-0 md:py-2 bg-[#FCFCFC] justify-center">
             <div className="h-full w-full items-center justify-center flex flex-col">
               {step === 1 ? (
                 <motion.div
@@ -148,7 +151,7 @@ export default function DemoPage() {
                             "0px 1px 4px rgba(13, 34, 71, 0.17), inset 0px 0px 0px 1px #ff8000, inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1)",
                         }}
                       >
-                        <span className="color"> Back </span>
+                        Back
                       </Link>
 
                       <button
@@ -165,7 +168,7 @@ export default function DemoPage() {
                             "0px 1px 4px rgba(13, 34, 71, 0.17), inset 0px 0px 0px 1px #061530, inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1)",
                         }}
                       >
-                        <span> Get a plan </span>
+                        Get a plan
                       </button>
                     </motion.div>
                   </div>
@@ -182,7 +185,7 @@ export default function DemoPage() {
                   }}
                   className="max-w-lg mx-auto px-4 lg:px-0"
                 >
-                  <div className="max-w-lg mx-auto px-4 lg:px-0 text-center">
+                  <div className="max-w-lg mx-auto px-4 lg:px-0 text-start">
                     {loading ? (
                       <motion.h1
                         initial={{ opacity: 0, y: 40 }}
@@ -192,27 +195,51 @@ export default function DemoPage() {
                           duration: 0.95,
                           ease: [0.165, 0.84, 0.44, 1],
                         }}
-                        className=" relative md:ml-[-10px] md:mb-[65px]  md:mt-[110px]  font-extrabold text-[16vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                        className="relative md:ml-[-10px] md:mb-[65px]  md:mt-[110px]  font-extrabold text-[8vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
                       >
                         <span className="text-[#40bf93]">Creating</span>
                         <br />
-                        &nbsp;a&nbsp;
+                        &nbsp;a great&nbsp;
                         <span className="font-inter text-[#407BBF]">
                           plan
                         </span>{" "}
                         ...
                       </motion.h1>
                     ) : (
-                      <h2 className="text-5xl font-bold text-[#40bf93]">
-                        TRIP TO{" "}
-                        <span className="font-inter text-[#407BBF]">
-                          {city.toUpperCase()}
-                        </span>
-                      </h2>
+                      <div className="flex gap-[20px] justify-start ml-3 mt-8">
+                        {!loading && (
+                          <div>
+                            <motion.div
+                              onClick={() => setStep(1)}
+                              className="group rounded-full px-0 py-2 text-[13px] font-semibold transition-all no-underline active:scale-95 scale-100 duration-75"
+                              style={{
+                                cursor: "pointer",
+                              }}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                width="24"
+                              >
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z" />
+                              </svg>
+                            </motion.div>
+                          </div>
+                        )}{" "}
+                        <h2 className="text-3xl mr-5 font-bold text-[#40bf93]">
+                          TRIP TO{" "}
+                          <span className="font-inter text-[#407BBF]">
+                            {/* {city.toUpperCase()} */}
+                            TALLINN
+                          </span>
+                        </h2>
+                      </div>
                     )}
 
-                    <div className="overflow-y-auto max-h-[60vh] my-4 px-4">
-                      {result && result.length > 0 && (
+                    <div className="overflow-y-auto max-h-[50vh] my-4 px-0">
+                      {/* {result && result.length > 0 && (
                         <div className="bg-[#F1F2F4] p-4 rounded-lg shadow-md">
                           {result.split("\n").map((line, index) => (
                             <div
@@ -228,25 +255,16 @@ export default function DemoPage() {
                             </div>
                           ))}
                         </div>
-                      )}
-                    </div>
+                      )} */}
 
-                    <div className="flex gap-[5px] justify-start ml-3 mt-8">
-                      {!loading && (
-                        <div>
-                          <motion.div
-                            onClick={() => setStep(1)}
-                            className="group rounded-full px-4 py-2 text-[13px] font-semibold transition-all flex items-center justify-center bg-[#f5f7f9] text-[#1E2B3A] no-underline active:scale-95 scale-100 duration-75"
-                            style={{
-                              cursor: "pointer",
-                              boxShadow:
-                                "0px 1px 4px rgba(13, 34, 71, 0.17), inset 0px 0px 0px 1px #ff8000, inset 0px 0px 0px 2px rgba(255, 255, 255, 0.1)",
-                            }}
-                          >
-                            <span className="color"> Back </span>
-                          </motion.div>
+                      {/* ////// */}
+                      {/* <div className="bg-[#F1F2F4] p-4 rounded-lg shadow-md ">
+                        <div
+                          className={`text-[14px] leading-[20px] px-8 font-normal my-2`}
+                        >
+                          {fakeData}
                         </div>
-                      )}
+                      </div> */}
                     </div>
                   </div>
                 </motion.div>
@@ -257,7 +275,7 @@ export default function DemoPage() {
           </div>
 
           {allImages.length > 0 ? (
-            <div className="w-full h-[40vh] md:w-1/2 md:h-screen bg-[#F1F2F4] relative overflow-hidden">
+            <div className=" w-full h-[50vh] md:w-1/2 md:h-screen bg-[#F1F2F4] relative overflow-hidden">
               <div className="overflow-y-auto h-full">
                 <div className="grid grid-cols-4 md:grid-cols-2 gap-1">
                   {allImages.slice(0, 16).map((image, index) => (
@@ -276,13 +294,13 @@ export default function DemoPage() {
             </div>
           ) : (
             <div
-              className="w-full h-[40vh] md:w-1/2 md:h-screen bg-[#F1F2F4] relative overflow-hidden"
+              className="w-full h-[50vh] md:w-1/2 md:h-screen bg-[#F1F2F4] relative overflow-hidden"
               style={{ userSelect: "none" }}
             >
               <div>
                 <svg
                   style={{ filter: "contrast(125%) brightness(110%)" }}
-                  className="fixed z-[1] w-full h-full opacity-[35%]"
+                  className="absolute z-[1] w-full h-full opacity-[35%]"
                 >
                   <filter id="noise">
                     <feTurbulence
@@ -295,7 +313,7 @@ export default function DemoPage() {
                   </filter>
                   <rect width="100%" height="100%" filter="url(#noise)"></rect>
                 </svg>
-                <main
+                <div
                   className="flex flex-col justify-center h-[90%] static md:fixed w-screen overflow-hidden grid-rows-[1fr_repeat(3,auto)_1fr] z-[100] 
                 pt-[120px] pb-[20px] px-4 md:px-20 md:py-0"
                 >
@@ -308,13 +326,14 @@ export default function DemoPage() {
                         duration: 0.95,
                         ease: [0.165, 0.84, 0.44, 1],
                       }}
-                      className=" relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[16vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                      className=" relative ml-[100px] sm:ml-[200px] md:ml-[-10px] md:mb-[37px]  md:mt-[137px]
+                        font-extrabold text-[8vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
                     >
-                      <span className="text-[#40bf93]">Searching</span>
+                      <span className="text-[#40bf93]">Taking</span>
                       <br />
-                      &nbsp;for&nbsp;
+                      &nbsp;few&nbsp;
                       <span className="font-inter text-[#407BBF]">
-                        images
+                        pictures
                       </span>{" "}
                       ...
                     </motion.h1>
@@ -327,16 +346,15 @@ export default function DemoPage() {
                         duration: 0.95,
                         ease: [0.165, 0.84, 0.44, 1],
                       }}
-                      className=" relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[16vw] md:text-[70px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                      className="  relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[8vw] md:text-[70px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
                     >
-                      Enter <span className="text-[#40bf93]">place</span>
+                      Enter <span className="text-[#40bf93]">days</span>
                       <br />
                       and{" "}
-                      <span className="font-inter text-[#407BBF]">days</span>.
+                      <span className="font-inter text-[#407BBF]">place</span>.
                     </motion.h1>
                   )}
-                  <div className="flex gap-[15px] mt-8 md:mt-0"></div>
-                </main>
+                </div>
               </div>
             </div>
           )}
