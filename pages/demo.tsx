@@ -326,12 +326,12 @@ alalal`;
                         duration: 0.95,
                         ease: [0.165, 0.84, 0.44, 1],
                       }}
-                      className=" relative ml-[100px] sm:ml-[200px] md:ml-[-10px] md:mb-[37px]  md:mt-[137px]
+                      className=" relative ml-[90px] sm:ml-[200px] md:ml-[-10px] md:mb-[37px]  md:mt-[137px]
                         font-extrabold text-[8vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
                     >
-                      <span className="text-[#40bf93]">Taking</span>
+                      <span className="text-[#40bf93]">Searching</span>
                       <br />
-                      &nbsp;few&nbsp;
+                      &nbsp;for a&nbsp;
                       <span className="font-inter text-[#407BBF]">
                         pictures
                       </span>{" "}
