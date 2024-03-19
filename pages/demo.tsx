@@ -16,6 +16,18 @@ export default function DemoPage() {
 
   const [result, setResult] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = () => {
+    const resultText = result.trim();
+    navigator.clipboard
+      .writeText(resultText)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch((err) => console.error("Failed to copy:", err));
+  };
 
   const fetchImage = async () => {
     const url = `https://${process.env.NEXT_PUBLIC_OPENAI_API_IMAGE_URL}/images/${city}`;
@@ -201,12 +213,12 @@ export default function DemoPage() {
                       ...
                     </motion.h1>
                   ) : (
-                    <div className="flex gap-[20px] justify-start ml-3 mt-8">
+                    <div className="flex gap-[20px] justify-start ml-3 md:mt-[50px]">
                       {!loading && (
                         <div>
                           <motion.div
                             onClick={() => setStep(1)}
-                            className="group rounded-full px-0 py-2 text-[13px] font-semibold transition-all no-underline active:scale-95 scale-100 duration-75"
+                            className="group rounded-full px-0 py-1 text-[13px] font-semibold transition-all no-underline active:scale-95 scale-100 duration-75"
                             style={{
                               cursor: "pointer",
                             }}
@@ -223,18 +235,25 @@ export default function DemoPage() {
                           </motion.div>
                         </div>
                       )}{" "}
-                      <h2 className="text-3xl mr-5 font-bold text-[#40bf93]">
-                        TRIP TO{" "}
-                        <span className="font-inter text-[#407BBF]">
-                          {city.toUpperCase()}
-                        </span>
-                      </h2>
+                      {result && result.length > 0 && (
+                        <h2
+                          className=" text-2xl mr-5  font-bold text-[#40bf93]"
+                          style={{ userSelect: "none" }}
+                        >
+                          TRIP TO{" "}
+                          <span
+                            className="font-inter text-[#407BBF]"
+                            style={{ userSelect: "none" }}
+                          >
+                            {city.toUpperCase()}
+                          </span>
+                        </h2>
+                      )}
                     </div>
                   )}
-
-                  <div className="overflow-y-auto max-h-[100vh] my-4 px-0">
+                  <div className="overflow-y-auto max-h-[40vh] my-4 px-4 relative">
                     {result && result.length > 0 && (
-                      <div className="bg-[#F1F2F4] p-4 rounded-lg shadow-md">
+                      <div className="bg-[#F1F2F4] p-4 rounded-lg shadow-md relative">
                         {result.split("\n").map((line, index) => (
                           <div
                             key={index}
@@ -248,17 +267,14 @@ export default function DemoPage() {
                             {line.trim()}
                           </div>
                         ))}
+                        <button
+                          className="absolute text-[13px] top-2 right-2 bg-gray-300 px-2 py-1 rounded-md focus:outline-none"
+                          onClick={handleCopy}
+                        >
+                          {copied ? "Copied!" : "Copy"}
+                        </button>
                       </div>
                     )}
-
-                    {/* ///FAKE/// */}
-                    {/* <div className="bg-[#F1F2F4] p-4 rounded-lg shadow-md ">
-                      <div
-                        className={`text-[14px] leading-[20px] px-8 font-normal my-2`}
-                      >
-                        {fakeData}
-                      </div>
-                    </div> */}
                   </div>
                 </motion.div>
               ) : (
@@ -271,7 +287,7 @@ export default function DemoPage() {
             <div className=" w-full h-[50vh] md:w-1/2 md:h-screen bg-[#F1F2F4] relative overflow-hidden">
               <div className="overflow-y-auto h-full">
                 <div className="grid grid-cols-4 md:grid-cols-2 gap-1">
-                  {allImages.slice(0, 16).map((image, index) => (
+                  {allImages.slice(0, 20).map((image, index) => (
                     <div key={index} className="">
                       <Image
                         src={`${image.image}`}
