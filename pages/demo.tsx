@@ -8,18 +8,14 @@ export default function DemoPage() {
   type Link = {
     image: string;
   };
-  const fakeData = `Day 1
-lalal
-Day 2 
-alalal`;
-  const [step, setStep] = React.useState(2);
+  const [step, setStep] = React.useState(1);
   const [city, setCity] = React.useState("");
   const [days, setDays] = React.useState("");
 
   const [allImages, setAllImages] = React.useState<Link[]>([]);
 
   const [result, setResult] = React.useState("");
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
 
   const fetchImage = async () => {
     const url = `https://${process.env.NEXT_PUBLIC_OPENAI_API_IMAGE_URL}/images/${city}`;
@@ -185,87 +181,84 @@ alalal`;
                   }}
                   className="max-w-lg mx-auto px-4 lg:px-0"
                 >
-                  <div className="max-w-lg mx-auto px-4 lg:px-0 text-start">
-                    {loading ? (
-                      <motion.h1
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                          delay: 0.15,
-                          duration: 0.95,
-                          ease: [0.165, 0.84, 0.44, 1],
-                        }}
-                        className="relative md:ml-[-10px] md:mb-[65px]  md:mt-[110px]  font-extrabold text-[8vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
-                      >
-                        <span className="text-[#40bf93]">Creating</span>
-                        <br />
-                        &nbsp;a great&nbsp;
-                        <span className="font-inter text-[#407BBF]">
-                          plan
-                        </span>{" "}
-                        ...
-                      </motion.h1>
-                    ) : (
-                      <div className="flex gap-[20px] justify-start ml-3 mt-8">
-                        {!loading && (
-                          <div>
-                            <motion.div
-                              onClick={() => setStep(1)}
-                              className="group rounded-full px-0 py-2 text-[13px] font-semibold transition-all no-underline active:scale-95 scale-100 duration-75"
-                              style={{
-                                cursor: "pointer",
-                              }}
+                  {loading ? (
+                    <motion.h1
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.15,
+                        duration: 0.95,
+                        ease: [0.165, 0.84, 0.44, 1],
+                      }}
+                      className="relative md:ml-[-10px] md:mb-[65px]  md:mt-[110px]  font-extrabold text-[40px] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                    >
+                      <span className="text-[#40bf93]">Creating</span>
+                      <br />
+                      &nbsp;a great&nbsp;
+                      <span className="font-inter text-[#407BBF]">
+                        plan
+                      </span>{" "}
+                      ...
+                    </motion.h1>
+                  ) : (
+                    <div className="flex gap-[20px] justify-start ml-3 mt-8">
+                      {!loading && (
+                        <div>
+                          <motion.div
+                            onClick={() => setStep(1)}
+                            className="group rounded-full px-0 py-2 text-[13px] font-semibold transition-all no-underline active:scale-95 scale-100 duration-75"
+                            style={{
+                              cursor: "pointer",
+                            }}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              width="24"
                             >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                width="24"
-                              >
-                                <path d="M0 0h24v24H0z" fill="none" />
-                                <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z" />
-                              </svg>
-                            </motion.div>
+                              <path d="M0 0h24v24H0z" fill="none" />
+                              <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z" />
+                            </svg>
+                          </motion.div>
+                        </div>
+                      )}{" "}
+                      <h2 className="text-3xl mr-5 font-bold text-[#40bf93]">
+                        TRIP TO{" "}
+                        <span className="font-inter text-[#407BBF]">
+                          {city.toUpperCase()}
+                        </span>
+                      </h2>
+                    </div>
+                  )}
+
+                  <div className="overflow-y-auto max-h-[100vh] my-4 px-0">
+                    {result && result.length > 0 && (
+                      <div className="bg-[#F1F2F4] p-4 rounded-lg shadow-md">
+                        {result.split("\n").map((line, index) => (
+                          <div
+                            key={index}
+                            className={`text-[14px] leading-[20px] font-normal my-2 ${
+                              line.startsWith("Day")
+                                ? "text-[#407BBF]"
+                                : "text-[#1a2b3b]"
+                            }`}
+                            style={{ textAlign: "start" }}
+                          >
+                            {line.trim()}
                           </div>
-                        )}{" "}
-                        <h2 className="text-3xl mr-5 font-bold text-[#40bf93]">
-                          TRIP TO{" "}
-                          <span className="font-inter text-[#407BBF]">
-                            {/* {city.toUpperCase()} */}
-                            TALLINN
-                          </span>
-                        </h2>
+                        ))}
                       </div>
                     )}
 
-                    <div className="overflow-y-auto max-h-[50vh] my-4 px-0">
-                      {/* {result && result.length > 0 && (
-                        <div className="bg-[#F1F2F4] p-4 rounded-lg shadow-md">
-                          {result.split("\n").map((line, index) => (
-                            <div
-                              key={index}
-                              className={`text-[14px] leading-[20px] font-normal my-2 ${
-                                line.startsWith("Day")
-                                  ? "text-[#407BBF]"
-                                  : "text-[#1a2b3b]"
-                              }`}
-                              style={{ textAlign: "start" }}
-                            >
-                              {line.trim()}
-                            </div>
-                          ))}
-                        </div>
-                      )} */}
-
-                      {/* ////// */}
-                      {/* <div className="bg-[#F1F2F4] p-4 rounded-lg shadow-md ">
-                        <div
-                          className={`text-[14px] leading-[20px] px-8 font-normal my-2`}
-                        >
-                          {fakeData}
-                        </div>
-                      </div> */}
-                    </div>
+                    {/* ///FAKE/// */}
+                    {/* <div className="bg-[#F1F2F4] p-4 rounded-lg shadow-md ">
+                      <div
+                        className={`text-[14px] leading-[20px] px-8 font-normal my-2`}
+                      >
+                        {fakeData}
+                      </div>
+                    </div> */}
                   </div>
                 </motion.div>
               ) : (
@@ -326,10 +319,10 @@ alalal`;
                         duration: 0.95,
                         ease: [0.165, 0.84, 0.44, 1],
                       }}
-                      className=" relative ml-[90px] sm:ml-[200px] md:ml-[-10px] md:mb-[37px]  md:mt-[137px]
-                        font-extrabold text-[8vw] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                      className=" relative ml-[53px] sm:ml-[150px] md:ml-[-10px] md:mb-[37px]  md:mt-[137px]
+                        text-start font-extrabold text-[40px] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
                     >
-                      <span className="text-[#40bf93]">Searching</span>
+                      <span className="text-[#40bf93]">Shooting</span>
                       <br />
                       &nbsp;for a&nbsp;
                       <span className="font-inter text-[#407BBF]">
@@ -346,7 +339,8 @@ alalal`;
                         duration: 0.95,
                         ease: [0.165, 0.84, 0.44, 1],
                       }}
-                      className="  relative md:ml-[-10px] md:mb-[37px]  md:mt-[137px]  font-extrabold text-[8vw] md:text-[70px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                      className=" relative ml-[53px] sm:ml-[150px] md:ml-[-10px] md:mb-[37px]  md:mt-[137px]
+                      text-start font-extrabold text-[40px] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
                     >
                       Enter <span className="text-[#40bf93]">days</span>
                       <br />
