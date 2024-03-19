@@ -73,7 +73,12 @@ export default function DemoPage() {
       body: JSON.stringify({
         query: `Give me plan for ${days} days when you are staying in ${city}. Do not use any HTML tags in answer. I need it in this format, without any other words from your side:
         ${[...Array(Number(days))]
-          .map((_, i) => `Day ${i + 1}\nWhat to do.`)
+          .map(
+            (_, i) =>
+              `Day ${i + 1}\nWhat to do. 
+              Also, for each day provide link of place which you are offering, only main page of website, without long path.
+ `
+          )
           .join("\n\n")}`,
       }),
     };
