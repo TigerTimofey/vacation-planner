@@ -1,12 +1,14 @@
 # AI Vacation Planner
 
-<img src="https://github.com/TigerTimofey/vacation-planner/assets/119110538/cc3243af-b5b5-4e6b-aa65-84dc2a46ca27" width="400" alt="vacation">
-<img src="https://github.com/TigerTimofey/vacation-planner/assets/119110538/779263e9-87ee-409a-bb25-990b79048ec0" width="400" alt="vacation">
+<img src="https://github.com/TigerTimofey/vacation-planner/assets/119110538/cc3243af-b5b5-4e6b-aa65-84dc2a46ca27" width="400" alt="vacation1">
+<img src="https://github.com/TigerTimofey/vacation-planner/assets/119110538/779263e9-87ee-409a-bb25-990b79048ec0" width="400" alt="vacation2">
 
 
+## Video about the application:
 
-## `Video about the application (English):`
-in progress
+<img src="https://github.com/TigerTimofey/vacation-planner/assets/119110538/49913ef1-d8e9-4768-8635-fa7b2bd8d9d7" width="700" alt="vacation3">
+
+
 
 ## `About project`
 The given project involves AI generating a travel itinerary and images of the specified countries provided by the user.
