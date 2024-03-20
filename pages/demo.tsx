@@ -203,6 +203,7 @@ export default function DemoPage() {
                         ease: [0.165, 0.84, 0.44, 1],
                       }}
                       className="relative md:ml-[-10px] md:mb-[65px]  md:mt-[110px]  font-extrabold text-[40px] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                      style={{ userSelect: "none" }}
                     >
                       <span className="text-[#40bf93]">Creating</span>
                       <br />
@@ -337,6 +338,7 @@ export default function DemoPage() {
                       }}
                       className=" relative ml-[53px] sm:ml-[150px] md:ml-[-10px] md:mb-[37px]  md:mt-[137px]
                         text-start font-extrabold text-[40px] md:text-[50px] font-inter text-[#1E2B3A] leading-[0.9] tracking-[-2px] z-[100]"
+                      style={{ userSelect: "none" }}
                     >
                       <span className="text-[#40bf93]">Shooting</span>
                       <br />
