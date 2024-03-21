@@ -7,10 +7,12 @@ import Image from "next/image";
 export default function DemoPage() {
   type Link = {
     image: string;
+    inputValue: number;
   };
+
   const [step, setStep] = React.useState(1);
   const [city, setCity] = React.useState("");
-  const [days, setDays] = React.useState("");
+  const [days, setDays] = React.useState<number | "">("");
 
   const [allImages, setAllImages] = React.useState<Link[]>([]);
 
@@ -90,7 +92,7 @@ export default function DemoPage() {
     }
   };
 
-  const isInputFilled = city.trim() !== "" && days.trim() !== "";
+  const isInputFilled = city.trim() !== "" && days !== 0;
 
   return (
     <AnimatePresence>
@@ -135,7 +137,14 @@ export default function DemoPage() {
                         id="daysInput"
                         type="number"
                         value={days}
-                        onChange={(e) => setDays(e.target.value)}
+                        onChange={(e) => {
+                          const inputValue = parseInt(e.target.value);
+                          if (inputValue >= 0) {
+                            setDays(inputValue);
+                          } else {
+                            setDays(0);
+                          }
+                        }}
                         placeholder="Days of stay"
                         className="bg-[#FCFCFC] text-center ml-2 border-b-2 p-3 border-gray-400 focus:outline-none focus:border-[#ff8000]"
                       />
@@ -218,7 +227,13 @@ export default function DemoPage() {
                       {!loading && (
                         <div>
                           <motion.div
-                            onClick={() => setStep(1)}
+                            onClick={() => {
+                              setStep(1);
+                              setCity("");
+                              setDays("");
+                              setAllImages([]);
+                              setResult("");
+                            }}
                             className="group rounded-full px-0 py-1 text-[13px] font-semibold transition-all no-underline active:scale-95 scale-100 duration-75"
                             style={{
                               cursor: "pointer",
