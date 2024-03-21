@@ -7,12 +7,10 @@ import Image from "next/image";
 export default function DemoPage() {
   type Link = {
     image: string;
-    inputValue: number;
   };
-
   const [step, setStep] = React.useState(1);
   const [city, setCity] = React.useState("");
-  const [days, setDays] = React.useState<number | "">("");
+  const [days, setDays] = React.useState("");
 
   const [allImages, setAllImages] = React.useState<Link[]>([]);
 
@@ -92,7 +90,7 @@ export default function DemoPage() {
     }
   };
 
-  const isInputFilled = city.trim() !== "" && days !== 0;
+  const isInputFilled = city.trim() !== "" && days.trim() !== "";
 
   return (
     <AnimatePresence>
@@ -135,15 +133,11 @@ export default function DemoPage() {
                     >
                       <input
                         id="daysInput"
-                        type="number"
+                        type="text"
                         value={days}
                         onChange={(e) => {
-                          const inputValue = parseInt(e.target.value);
-                          if (inputValue >= 0) {
-                            setDays(inputValue);
-                          } else {
-                            setDays(0);
-                          }
+                          const inputValue = e.target.value.replace(/\D/g, "");
+                          setDays(inputValue);
                         }}
                         placeholder="Days of stay"
                         className="bg-[#FCFCFC] text-center ml-2 border-b-2 p-3 border-gray-400 focus:outline-none focus:border-[#ff8000]"
